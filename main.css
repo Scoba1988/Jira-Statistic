@@ -16,21 +16,35 @@ input,select {
 	font: 16px/20px Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
 a{
+	color: #038cd6;
 	text-decoration: none;
 }
 a:hover {
 	text-decoration: underline;
 }
 
-.wrapper {
-	width: 100%;
-	padding: 20px;
-	display: flex;
-	height: 100%;
+table {
+	border-collapse: collapse;
+	width: auto;
 }
+table th,
+table td {
+	height: 30px;
+	padding: 0;
+	text-align: left;
+	border-bottom: 1px solid #000;
+}
+
+.calendar {
+	margin: 0 20px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
 .filter-form {
-	padding: 0 0 50px;
-	width: 100%;
+	padding: 20px 0;
 }
 
 .filter-form select {
@@ -43,114 +57,176 @@ a:hover {
 	-moz-appearance: none;
 	appearance: none;*/
 }
-.filter-form select:focus{
+.filter-form select:focus {
 	outline: none;
 }
-.header {
-	overflow: hidden;
+
+.header,
+.main {
+	display: flex;
 }
 
-.row-description {
-	padding-right: 34%;
-	text-align: right;
-}
-
-.row-description p {
-	margin: 0;
-}
-
-.calendar-table {
-	border-spacing: 0;
-	width: auto;
-}
-
-.calendar-table td,
-.calendar-table th {
-	width: 40px;
-	min-width: 40px;
-	height: 30px;
-	min-height: 30px;
-	padding: 0;
+.headings,
+.chart-header,
+.chart-content,
+.sidebar {
+	flex: 1 1 50%;
+	max-width: 50%;
 }
 
 .headings {
-	float: left;
-	width: 50%;
 	height: 70px;
+	background: #fff;
+	z-index: 10;
+	text-align: right;
 }
-.calendar-header {
-	width: 50%;
-	float: right;
-	overflow: hidden;
-	height: 70px;
+.headings-holder {
+	padding-right: 5%;
 }
-
-.calendar-header th.start-of-month,
-.calendar-content td.start-of-month {
-	border-left: 1px solid #000;
-}
-
-
-.calendar-header .week {
-	width: 100%;
-	position: relative;
-	height: 70px;
-	padding: 25px 3px;
-	text-align: left;
-}
-
-.month,
-.milestone {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 100;
-	padding: 0 3px;
-}
-
-.milestone {
-	top: auto;
-	bottom: 0;
+.headings p {
+	margin: 0;
 }
 
 .main {
-	overflow: hidden;
-}
-
-.calendar-sidebar {
-	float: left;
-	height: 300px;
-	width: 50%;
-}
-
-.calendar-sidebar table,
-.headings table{
 	width: 100%;
-	table-layout: fixed;
+	flex: 1;
 }
 
-.calendar-sidebar th,
-.calendar-sidebar td,
-.headings th,
-.headings td {
-	height: 30px;
-	min-height: 30px;
-	padding: 5px 20px 5px 0;
-	max-width: 33%;
+.chart-header {
+	height: 70px;
+	border-left: 1px solid #000;
 }
+.char-table-wrap {
+	position: relative;
+	z-index: -1;
+}
+.chart-table th,
+.chart-table td {
+	width: 30px;
+	min-width: 30px;
+}
+
+/*.current-week {
+	background: red;
+}*/
+
+.chart-table td.start-of-month {
+	border-left: 1px solid #000;
+}
+
+.chart-table td:first-child {
+	border-left: none;
+}
+
+.chart-header .week {
+	width: 100%;
+	position: relative;
+	height: 70px;
+	padding: 25px 5px;
+}
+
+.chart-table th.start-of-month .week:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 9999px;
+	width: 1px;
+	background: #000;
+	z-index: 5;
+}
+
+.chart-table th:first-child .week:after {
+	display: none;
+}
+
+.chart-header .month {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0 5px;
+}
+
+.chart-content {
+	overflow-y: auto;
+	overflow-x: scroll;
+	border-left: 1px solid #000;
+	position: relative;
+	z-index: 12;
+}
+
+.is-estimated {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-image: linear-gradient( to top left, transparent 20%, rgba(0,0,0, 0.4), transparent 80%);
+}
+
+.doing { background: #666; }
+
+.design {background: #7DE890;}
+.specification {background: #E5A27B;}
+.backlog {background: #242614;}
+.analysis {background: #EA967C;}
+.development {background: #5A94AA;}
+.isit {background: #347C63;}
+.open {background: #68F9CC;}
+.ready-for-isit {background: #758E3B;}
+
+
+.sidebar {
+	padding-top: 30px;
+	margin-top: -30px;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	background: #fff;
+	z-index: 10;
+}
+
+.data-table-wrap {
+	overflow: scroll;
+	margin-right: -17px;
+	flex: 1 1 100%;
+}
+
+.data-table {
+	width: 100%;
+}
+
+.data-table th {
+	height: 0;
+	line-height: 0;
+	white-space: nowrap;
+	color: transparent;
+	padding: 0 20px 0 0;
+}
+
+.data-table .name {
+	position: absolute;
+	height: 30px;
+	line-height: normal;
+	top: 0;
+	color: #000;
+	padding: 5px 0;
+}
+
+.data-table td {
+	padding: 5px 20px 4px 0;
+}
+
+
+
+
+.truncate-wrap {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+}
+
 .truncate {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-}
-
-.calendar-content {
-	float: left;
-	width: 50%;
-	height: 300px;
-	overflow: auto;
-}
-
-.calendar-content .doing {
-	background: #666;
+	max-width: 100%;
 }

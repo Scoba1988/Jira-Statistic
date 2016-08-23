@@ -9,49 +9,45 @@
 	<link rel="stylesheet" type="text/css" href="./main.css">
 </head>
 <body>
-	<div class="wrapper">
-		<div class="calendar">
-			<form action="#" class="filter-form">
-				<label for="team-filter"></label>
-				<select name="filter-by-team" id="team-filter">
-					<option value="All">All</option>
-					<option value="Bumblebee">Bumblebee</option>
-					<option value="Wheeljack">Wheeljack</option>
-					<option value="Architecture">Architecture</option>
-				</select>
-			</form>
-			<header class="header">
-				<div class="headings">
-					<div class="row-description">
-						<p>Month</p>
-						<p>week number</p>
-					</div>
-					<div class="sidebar-header">
-						<table class="calendar-table">
-							<thead>
-								<tr></tr>
-							</thead>
-						</table>
-					</div>
+	<div class="calendar">
+		<form action="#" class="filter-form">
+			<select name="filter-by-team" id="team-filter">
+				<option value="All">All Teams</option>
+			</select>
+		</form>
+		<header class="header">
+			<div class="headings">
+				<div class="headings-holder">
+					<p>Month</p>
+					<p>week number</p>
 				</div>
+			</div>
 
-				<div class="calendar-header">
-					<table class="calendar-table">
+			<div class="chart-header">
+				<table class="chart-table">
+					<thead>
+						<tr></tr>
+					</thead>
+				</table>
+			</div>
+		</header>
+
+		<div class="main">
+			<aside class="sidebar">
+				<div class="data-table-wrap">
+					<table class="data-table">
 						<thead>
 							<tr></tr>
 						</thead>
-					</table>
-				</div>
-			</header>
-			<div class="main">
-				<aside class="calendar-sidebar">
-					<table class="calendar-table">
 						<tbody>
+							
 						</tbody>
 					</table>
-				</aside>
-				<div class="calendar-content">
-					<table class="calendar-table">
+				</div>
+			</aside>
+			<div class="chart-content">
+				<div class="char-table-wrap">
+					<table class="chart-table">
 						<tbody>
 							
 						</tbody>
