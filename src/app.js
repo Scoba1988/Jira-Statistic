@@ -1,3 +1,6 @@
+var $ = require('jquery');
+var moment = require('moment');
+
 $(document).ready(function() {
 	init();
 });
