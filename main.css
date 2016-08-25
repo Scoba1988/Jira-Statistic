@@ -173,7 +173,6 @@ table td {
 .open {background: #68F9CC;}
 .ready-for-isit {background: #758E3B;}
 
-
 .sidebar {
 	padding-top: 30px;
 	margin-top: -30px;
@@ -214,9 +213,6 @@ table td {
 .data-table td {
 	padding: 5px 20px 4px 0;
 }
-
-
-
 
 .truncate-wrap {
 	display: table;
