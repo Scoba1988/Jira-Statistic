@@ -1,0 +1,19 @@
+{
+  "name": "Jira-Statistic",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Scoba1988/Jira-Statistic.git"
+  },
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "moment": "^2.14.1",
+    "rxjs": "^5.0.0-beta.11",
+    "webpack": "^1.13.2"
+  }
+}
