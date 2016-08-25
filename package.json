@@ -8,11 +8,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/webpack/react-webpack-server-side-example.git"
-  },
-  "author": "Tobias Koppers @sokra",
-  "license": "MIT",
-  "bugs": {
     "url": "https://github.com/Scoba1988/Jira-Statistic.git"
   },
   "dependencies": {
