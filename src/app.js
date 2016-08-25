@@ -277,7 +277,7 @@ function _renderTable(head, body) {
 		body.map(function(row) {
 			return ['<tr class="'+ ( row.isStartTask ? 'current-task' : '')+'">', 
 				row.cells.map(function(v) {
-					var content = v.isLink ? '<a href="' +v.url+'">' +v.text+ '</a>' : v.text;
+					var content = v.isLink ? '<a href="' +v.url+'" target="_blank">' +v.text+ '</a>' : v.text;
 					if (v.truncate) {
 						content = ['<div class="truncate-wrap"><div class="truncate">', content, '</div></div>'].join('');
 					}
