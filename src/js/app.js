@@ -7,9 +7,16 @@ $(document).ready(function() {
 
 function init() {
 	var dataArray = JSON.parse(loadURL('./data.json'))
-		.sort(function(a, b) {
-			return moment(a.StartDate) - moment(b.StartDate);
-		});
+		.sort(
+			sortBy(
+				function(a, b) {
+					return moment(a.StartDate) - moment(b.StartDate);
+				},
+				function(a, b) {
+					return a.Team.localeCompare(b.Team);
+				}
+			)
+		);
 
 	$('#team-filter').on('change', function() {
 		var filter = this.value;
@@ -25,6 +32,21 @@ function init() {
 		return function(o) {
 			return o[propName] === propValue;
 		}
+	}
+}
+
+function sortBy() {
+	var comparators = [].slice.apply(arguments).reverse();
+
+	return function(a, b) {
+		var comparatorsClone = comparators.slice();
+		var res;
+
+		do {
+			res = comparatorsClone.pop()(a, b);
+		} while (!res && comparatorsClone.length);
+
+		return res;
 	}
 }
 
@@ -87,7 +109,7 @@ function _showChart(dataArray) {
 
 function _getChartData(dataArray) {
 	var today = moment();
-	var arr = dataArray.slice()
+	var arr = dataArray
 		.map(function(o) {
 
 			return {
@@ -97,6 +119,7 @@ function _getChartData(dataArray) {
 				isEstimated: o.IsProgamaticallyEstimated
 			}
 		});
+
 
 	var min = moment.min( arr.map(function(o){ return o.start }) );
 
@@ -119,18 +142,22 @@ function _getChartData(dataArray) {
 			var d = moment(o.start);
 
 			while (d < o.end) {
-				var numOfRow = Math.round(moment.duration(d.diff(min)).asWeeks());
+				var numOfCell = Math.round(moment.duration(d.diff(min)).asWeeks());
 
-				row[numOfRow].doing = true;
-				row[numOfRow].status = o.status;
-				row[numOfRow].isEstimated = o.isEstimated;
+				row[numOfCell].doing = true;
+				row[numOfCell].status = o.status;
+				row[numOfCell].isEstimated = o.isEstimated
 
 				d.isoWeek(d.isoWeek() + 1);
 			}
 
-
 			return row;
 		});
+
+
+
+
+
 
 	return {head: headRow, body: body};
 
@@ -149,9 +176,14 @@ function _getChartData(dataArray) {
 			if (currMonth !== curr.format('MMMM')) {
 				currMonth = cell.month = curr.format('MMMM');
 				cell.startOfMonth = true;
-			} 
-			if(curr.isSame(today, 'month')) {
+			}
+
+			if(curr.isSame(today, 'week')) {
 				cell.currWeek = true;
+			}
+
+			if(curr.isSame(today, 'month')) {
+				cell.currMonth = true;
 			}
 	 
 			row.push( cell);
@@ -168,7 +200,8 @@ function _renderChart(head, body) {
 			var month = v.month ? ['<span class="month">', v.month ,'</span>'].join('') : '';
 			var classes = [
 				v.startOfMonth ? 'start-of-month' : '',
-				v.currWeek ? 'current-week' : ''
+				v.currWeek ? 'current-week' : '',
+				v.currMonth ? 'current-month' : '',
 			].join(' ');
 			var content = ['<div class="week">', v.week, month, '</div>'].join('');
 
@@ -311,7 +344,7 @@ function syncScroll() {
 	var defaultLeftPosition = headerTable.offset().left;
 	var defaultTopPosition = asideTable.offset().top;
 
-	var currLeftPosition = calendar.find('.current-week').offset().left;
+	var currLeftPosition = calendar.find('.current-month').offset().left;
 	var currTopPosition = calendar.find('.current-task').offset().top;
 
 	var offsetLeftSize = currLeftPosition - defaultLeftPosition;

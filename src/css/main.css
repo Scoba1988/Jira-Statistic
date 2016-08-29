@@ -106,12 +106,36 @@ table td {
 	min-width: 30px;
 }
 
-/*.current-week {
-	background: red;
-}*/
+
+.chart-table th.current-week {
+	position: relative;
+	background: #f00;
+}
+
+.chart-table th.current-week:after {
+	position: absolute;
+	left: 50%;
+	top: 100%;
+	height: 9999px;
+	margin: 0 0 20px;
+	content: '';
+	width: 1px;
+	background: #f00;
+	z-index: 13;
+}
 
 .chart-table td.start-of-month {
-	border-left: 1px solid #000;
+	position: relative;
+}
+
+.chart-table td.start-of-month:after {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	content: '';
+	width: 1px;
+	background: #000;
 }
 
 .chart-table td:first-child {
@@ -180,7 +204,7 @@ table td {
 	overflow: hidden;
 	display: flex;
 	background: #fff;
-	z-index: 10;
+	z-index: 15;
 }
 
 .data-table-wrap {
