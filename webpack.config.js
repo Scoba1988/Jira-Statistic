@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 
 module.exports = {
     entry: "./src/js/index.js",
@@ -5,5 +6,7 @@ module.exports = {
         path: __dirname,
         filename: "bundle.js"
     },
-    watch: true
+    plugins: [
+        new webpack.IgnorePlugin(/\.\/locale/)
+    ]
 };
