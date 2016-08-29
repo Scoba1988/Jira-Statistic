@@ -14,8 +14,10 @@
   "dependencies": {
     "jquery": "^3.1.0",
     "moment": "^2.14.1",
+    "webpack": "^1.13.2"
+  }, 
+  "devDependencies": {
     "rxjs": "^5.0.0-beta.11",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.15.0"
+     "webpack-dev-server": "^1.15.0"
   }
 }

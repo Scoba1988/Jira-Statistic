@@ -1,5 +1,5 @@
 @echo Installing npm dependencies
-call npm install
+call npm install && npm run-script build
 
 if errorlevel 1 (
 	@echo ********** BUILD FAILURE **********

@@ -7,6 +7,9 @@ module.exports = {
         filename: "bundle.js"
     },
     plugins: [
-        new webpack.IgnorePlugin(/\.\/locale/)
+        new webpack.IgnorePlugin(/\.\/locale/),
+        new webpack.DefinePlugin({
+        	__PATH__: '"./data.json"'
+        })
     ]
 };

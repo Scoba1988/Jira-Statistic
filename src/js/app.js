@@ -6,7 +6,7 @@ $(document).ready(function() {
 });
 
 function init() {
-	var dataArray = JSON.parse(loadURL('./data.json'))
+	var dataArray = loadURL(__PATH__)
 		.sort(
 			sortBy(
 				function(a, b) {
@@ -372,5 +372,5 @@ function loadURL(url) {
 	xhr.open('GET', url, false);
 	xhr.send(null);
 
-	return xhr.responseText;
+	return JSON.parse(xhr.responseText);
 }
