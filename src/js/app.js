@@ -6,50 +6,67 @@ $(document).ready(function() {
 });
 
 function init() {
-	var dataArray = loadURL(__PATH__)
-		.sort(
-			sortBy(
-				function(a, b) {
-					return moment(a.StartDate) - moment(b.StartDate);
-				},
-				function(a, b) {
-					return a.Team.localeCompare(b.Team);
-				}
-			)
-		);
+	var dataArray = loadURL(__PATH__);
+	var filterEl  = $('#team-filter');
+	var sortingEl = $('.change-date');
+	var filterValue = 'All';
 
-	$('#team-filter').on('change', function() {
-		var filter = this.value;
-		var renderData = filter === 'All' ? dataArray : dataArray.filter(_matchLater('Team', filter));
 
-		_render(renderData);
-	});
+	update();
 
 	_createFilter(dataArray);
-	_render(dataArray);
 
-	function _matchLater(propName, propValue) {
+	filterEl.on('change', update);
+
+	sortingEl.on('change', update);
+
+	function update() {
+		_sort(dataArray, sortingEl.is(':checked'));
+		_render(_filter(dataArray, filterEl.val()));
+	}
+}
+
+function _sort(dataArray, dueDate) {
+	var dateSort = dueDate
+		? function(a, b) { return moment(a.DueDate) - moment(b.DueDate); }
+		: function(a, b) { return moment(a.StartDate) - moment(b.StartDate); };
+
+
+	dataArray.sort(
+		sortBy(
+			dateSort,
+			function(a, b) {
+				return a.Team.localeCompare(b.Team);
+			}
+		)
+	)
+
+	function sortBy() {
+		var comparators = [].slice.apply(arguments).reverse();
+
+		return function(a, b) {
+			var comparatorsClone = comparators.slice();
+			var res;
+
+			do {
+				res = comparatorsClone.pop()(a, b);
+			} while (!res && comparatorsClone.length);
+
+			return res;
+		}
+	}
+}
+
+function _filter(dataArray, value) {
+	return (value === 'All' || !value) ? dataArray : dataArray.filter(matchLater('Team', value));
+
+
+	function matchLater(propName, propValue) {
 		return function(o) {
 			return o[propName] === propValue;
 		}
 	}
 }
-
-function sortBy() {
-	var comparators = [].slice.apply(arguments).reverse();
-
-	return function(a, b) {
-		var comparatorsClone = comparators.slice();
-		var res;
-
-		do {
-			res = comparatorsClone.pop()(a, b);
-		} while (!res && comparatorsClone.length);
-
-		return res;
-	}
-}
-
 
 function _render(dataArray) {
 	_destroy();
@@ -348,7 +365,7 @@ function syncScroll() {
 	var currTopPosition = calendar.find('.current-task').offset().top;
 
 	var offsetLeftSize = currLeftPosition - defaultLeftPosition;
-	var offsetTopSize = currTopPosition - defaultTopPosition;
+	var offsetTopSize = currTopPosition + mainTable.scrollTop() - defaultTopPosition;
 
 	headerTable.css('margin-left', -offsetLeftSize);
 	mainTable.scrollLeft(offsetLeftSize);
@@ -364,6 +381,8 @@ function syncScroll() {
 	asideTable.on('scroll', function(){
 		mainTable.scrollTop(asideTable.scrollTop());
 	});
+
+	console.log(calendar.find('.current-task').offset().top)
 }
 
 function loadURL(url) {
